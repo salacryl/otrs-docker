@@ -10,6 +10,6 @@ RUN ln -s /opt/otrs/scripts/apache2-httpd.include.conf /etc/apache2/sites-enable
 RUN perl -cw /opt/otrs/bin/cgi-bin/index.pl && perl -cw /opt/otrs/bin/cgi-bin/customer.pl && perl -cw /opt/otrs/bin/otrs.Console.pl
 RUN su - otrs -c "/opt/otrs/bin/otrs.Daemon.pl start" && su - otrs -c "/opt/otrs/bin/Cron.sh start"
 RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && ln -sf /proc/self/fd/1 /var/log/apache2/error.log
-RUN echo "0 22 * * * otrs /opt/otrs/scripts/backup.pl -d /backup/ > /dev/null 2>&1" /etc/crontab
+RUN echo "0 22 * * * otrs /opt/otrs/scripts/backup.pl -d /backup/ > /dev/null 2>&1" >>/etc/crontab
 EXPOSE 80
 CMD apachectl -D FOREGROUND
